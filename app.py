@@ -72,4 +72,4 @@ def roti_checker(image_path):
 
 if __name__ == '__main__':
     # Replace 'roti.jpg' with the path to your roti image file
-    roti_checker('roti.jpg')
+    roti_checker('/Users/spars/Desktop/RotiChecker/images/roti1.png')
