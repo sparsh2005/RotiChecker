@@ -11,3 +11,6 @@ env/
 *.workspace
 .vscode/
 .idea/
+
+#saved uploads temporarily
+uploads/

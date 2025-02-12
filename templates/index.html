@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roti Checker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+      }
+      .results {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <h1>Roti Checker</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="roti_image">Upload your roti image:</label><br><br>
+        <input type="file" id="roti_image" name="roti_image" accept="image/*" required /><br><br>
+        <button type="submit">Check My Roti</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if filename %}
+      <div class="results">
+        <h2>Results for {{ filename }}</h2>
+        <p>Circularity: {{ circularity|round(3) }}</p>
+        <p>Circularity Score (0-100): {{ circularity_score|round(1) }}</p>
+        <p>Color Std Dev: {{ std_dev|round(2) }}</p>
+        <p>Color Uniformity Score (0-100): {{ color_score|round(1) }}</p>
+        <hr />
+        <p><strong>Overall Roti Perfection Score: {{ overall_score|round(2) }}/100</strong></p>
+      </div>
+    {% endif %}
+</body>
+</html>
