@@ -1,54 +1,56 @@
 # server.py
 
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from werkzeug.utils import secure_filename
-from app import roti_checker  # Import your roti_checker function
+from app import roti_checker  # your CV logic
 
 app = Flask(__name__)
 
-# Create an 'uploads' folder if it doesn't exist
+# Folder to store uploads temporarily
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Optional: limit upload size (e.g., 16 MB)
+# Limit upload size if desired (16 MB)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        if 'roti_image' not in request.files:
-            return render_template('index.html', error="No file part in request.")
-
-        file = request.files['roti_image']
-        if file.filename == '':
-            return render_template('index.html', error="No file selected!")
-
-        # Secure the filename (removes unsafe characters, etc.)
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-        # Save file temporarily
-        file.save(filepath)
-
-        # Call the roti checker function
-        results = roti_checker(filepath)
-        if results is None:
-            # roti_checker returned None => error or no roti found
-            return render_template('index.html', error="No roti found or invalid image!")
-        
-        return render_template('index.html', 
-                               filename=filename,
-                               circularity=results["circularity"],
-                               circularity_score=results["circularity_score"],
-                               std_dev=results["std_dev"],
-                               color_score=results["color_score"],
-                               overall_score=results["overall_score"])
-
-    # GET request => just show the upload form
+    # Serve our main page (templates/index.html)
     return render_template('index.html')
 
+@app.route('/upload', methods=['POST'])
+def upload():
+    """Handle AJAX file upload, run roti analysis, return JSON scores."""
+    if 'roti_image' not in request.files:
+        return jsonify({"error": "No file found"}), 400
+
+    file = request.files['roti_image']
+    if file.filename == '':
+        return jsonify({"error": "File name is empty"}), 400
+
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+
+    # Run the roti checker
+    results = roti_checker(filepath)
+    if results is None:
+        # roti_checker returned None => error in analysis
+        return jsonify({"error": "Could not analyze roti image"}), 400
+
+    # Extract the three scores we need
+    roundness = results["circularity_score"]
+    color = results["color_score"]
+    overall = results["overall_score"]
+
+    # Return as JSON
+    return jsonify({
+        "roundness": roundness,
+        "color": color,
+        "overall": overall
+    })
+
 if __name__ == '__main__':
-    # Run the flask app
     app.run(debug=True)

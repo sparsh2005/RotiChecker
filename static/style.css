@@ -1,0 +1,239 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  /* Layout */
+  .min-h-screen {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #fff8e1, #ffe0b2);
+    padding: 2rem 1rem;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .max-w-2xl {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #8b4513;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header p {
+    color: #a0522d;
+  }
+  
+  /* Main Card */
+  .main-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Upload Area */
+  .upload-area {
+    margin-bottom: 1.5rem;
+  }
+  
+  .upload-placeholder {
+    border: 3px dashed #ffe0b2;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  
+  .upload-placeholder:hover {
+    border-color: #ffb74d;
+  }
+  
+  .upload-icon {
+    width: 3rem;
+    height: 3rem;
+    color: #ffb74d;
+    margin-bottom: 1rem;
+  }
+  
+  .upload-text {
+    color: #8b4513;
+    font-weight: 500;
+  }
+  
+  .upload-subtext {
+    color: #a0522d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Image Preview */
+  .image-preview {
+    position: relative;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+    border-radius: 0.75rem;
+  }
+  
+  .camera-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 9999px;
+    padding: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+  }
+  
+  .camera-button:hover {
+    background: white;
+  }
+  
+  .camera-button i {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #d97706;
+  }
+  
+  /* Analysis Results */
+  .scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .score-card {
+    background: #fff8e1;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+  
+  .score-card i {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #d97706;
+    margin-bottom: 0.5rem;
+  }
+  
+  .score-label {
+    color: #8b4513;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .score-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .score-value.good {
+    color: #22c55e;
+  }
+  
+  .score-value.medium {
+    color: #eab308;
+  }
+  
+  .score-value.poor {
+    color: #ef4444;
+  }
+  
+  /* Feedback Card */
+  .feedback-card {
+    background: #fff8e1;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .feedback-card i {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #d97706;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+  
+  .feedback-title {
+    color: #8b4513;
+    font-weight: 500;
+  }
+  
+  .feedback-text {
+    color: #a0522d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Tips Card */
+  .tips-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .tips-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #8b4513;
+    margin-bottom: 0.75rem;
+  }
+  
+  .tips-card ul {
+    list-style: none;
+    color: #a0522d;
+  }
+  
+  .tips-card li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 640px) {
+    .scores-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+      font-size: 2rem;
+    }
+  }

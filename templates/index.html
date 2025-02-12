@@ -1,43 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Roti Checker</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-      }
-      .results {
-        margin-top: 20px;
-        border: 1px solid #ddd;
-        padding: 10px;
-      }
-      .error {
-        color: red;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Roti Perfectionist</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Link to your static CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Roti Checker</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <label for="roti_image">Upload your roti image:</label><br><br>
-        <input type="file" id="roti_image" name="roti_image" accept="image/*" required /><br><br>
-        <button type="submit">Check My Roti</button>
-    </form>
+  <div class="min-h-screen">
+    <div class="container">
+      <div class="max-w-2xl">
+        <!-- Header -->
+        <div class="header">
+          <h1>Roti Perfectionist</h1>
+          <p>Check your roti's roundness and color perfection</p>
+        </div>
 
-    {% if error %}
-      <p class="error">{{ error }}</p>
-    {% endif %}
+        <!-- Main Content -->
+        <div class="main-card">
+          <!-- Image Upload Area -->
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <i data-lucide="upload" class="upload-icon"></i>
+              <p class="upload-text">Upload your roti photo</p>
+              <p class="upload-subtext">Click or drag and drop</p>
+            </div>
+            <div class="image-preview hidden" id="imagePreview">
+              <img id="uploadedImage" src="" alt="Uploaded roti">
+              <button class="camera-button" id="newImageBtn">
+                <i data-lucide="camera"></i>
+              </button>
+            </div>
+            <!-- Our input is hidden for drag/drop or direct click -->
+            <input type="file" id="fileInput" accept="image/*" class="hidden">
+          </div>
 
-    {% if filename %}
-      <div class="results">
-        <h2>Results for {{ filename }}</h2>
-        <!-- Show only roundness, color uniformity, overall score -->
-        <p>Roundness Score (0-100): {{ circularity_score|round(1) }}</p>
-        <p>Color Uniformity Score (0-100): {{ color_score|round(1) }}</p>
-        <hr />
-        <p><strong>Overall Roti Perfection Score: {{ overall_score|round(2) }}/100</strong></p>
+          <!-- Analysis Results -->
+          <div class="analysis-results hidden" id="analysisResults">
+            <div class="scores-grid">
+              <!-- Roundness Score -->
+              <div class="score-card">
+                <i data-lucide="circle"></i>
+                <p class="score-label">Roundness</p>
+                <p class="score-value" id="roundnessScore">0%</p>
+              </div>
+
+              <!-- Color Score -->
+              <div class="score-card">
+                <i data-lucide="palette"></i>
+                <p class="score-label">Color</p>
+                <p class="score-value" id="colorScore">0%</p>
+              </div>
+
+              <!-- Total Score -->
+              <div class="score-card">
+                <i data-lucide="award"></i>
+                <p class="score-label">Total Score</p>
+                <p class="score-value" id="totalScore">0%</p>
+              </div>
+            </div>
+
+            <!-- Feedback Message -->
+            <div class="feedback-card">
+              <i data-lucide="info"></i>
+              <div>
+                <p class="feedback-title">Analysis Feedback</p>
+                <p class="feedback-text" id="feedbackText"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-card">
+          <h3>Tips for Perfect Roti</h3>
+          <ul>
+            <li>• Use even pressure while rolling</li>
+            <li>• Rotate the roti frequently while rolling</li>
+            <li>• Maintain consistent heat while cooking</li>
+            <li>• Look for light brown spots for perfect color</li>
+          </ul>
+        </div>
       </div>
-    {% endif %}
+    </div>
+  </div>
+
+  <!-- Include your custom JS from static folder -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
