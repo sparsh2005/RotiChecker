@@ -32,9 +32,8 @@
     {% if filename %}
       <div class="results">
         <h2>Results for {{ filename }}</h2>
-        <p>Circularity: {{ circularity|round(3) }}</p>
-        <p>Circularity Score (0-100): {{ circularity_score|round(1) }}</p>
-        <p>Color Std Dev: {{ std_dev|round(2) }}</p>
+        <!-- Show only roundness, color uniformity, overall score -->
+        <p>Roundness Score (0-100): {{ circularity_score|round(1) }}</p>
         <p>Color Uniformity Score (0-100): {{ color_score|round(1) }}</p>
         <hr />
         <p><strong>Overall Roti Perfection Score: {{ overall_score|round(2) }}/100</strong></p>
