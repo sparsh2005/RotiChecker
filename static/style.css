@@ -237,3 +237,31 @@
       font-size: 2rem;
     }
   }
+  
+  /* Use Camera Button */
+  .use-camera-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #fff5e6;
+    border: none;
+    border-radius: 0.75rem;
+    color: #8b4513;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+  }
+  
+  .use-camera-button i {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #8b4513;
+  }
+  
+  .use-camera-button:hover {
+    background-color: #ffe0b2;
+  }
