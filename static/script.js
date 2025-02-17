@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalScore = document.getElementById('totalScore');
     const feedbackText = document.getElementById('feedbackText');
   
+    // Add new DOM element reference
+    const useCameraButton = document.querySelector('.use-camera-button');
+  
+    // Add camera handling functions
+    let stream = null;
+  
     // Event Listeners
     uploadPlaceholder.addEventListener('click', () => fileInput.click());
     newImageBtn.addEventListener('click', () => fileInput.click());
@@ -44,6 +50,34 @@ document.addEventListener('DOMContentLoaded', () => {
       if (file) {
         handleImageUpload(file);
       }
+    });
+  
+    // Camera button click handler
+    useCameraButton.addEventListener('click', async () => {
+        try {
+            // Get camera access with appropriate constraints
+            const constraints = {
+                video: {
+                    facingMode: isMobile() ? 'environment' : 'user',
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                }
+            };
+            
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            
+            // Create and show camera UI
+            const cameraUI = createCameraUI();
+            document.querySelector('.main-card').appendChild(cameraUI);
+            
+            // Start video stream
+            const videoElement = document.getElementById('camera-feed');
+            videoElement.srcObject = stream;
+            
+        } catch (err) {
+            console.error('Camera access error:', err);
+            alert('Unable to access camera. Please make sure you have granted camera permissions.');
+        }
     });
   
     // Handle image upload
@@ -141,5 +175,82 @@ document.addEventListener('DOMContentLoaded', () => {
         message = "Needs improvement. Try rolling more evenly. 💪";
       }
       feedbackText.textContent = message;
+    }
+  
+    // Helper function to check if device is mobile
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+  
+    // Create camera UI elements
+    function createCameraUI() {
+        const container = document.createElement('div');
+        container.className = 'camera-container';
+        container.innerHTML = `
+            <div class="camera-wrapper">
+                <video id="camera-feed" autoplay playsinline></video>
+                <div class="camera-controls">
+                    <button id="capture-button" class="capture-button">
+                        <i data-lucide="camera"></i>
+                    </button>
+                    <button id="close-camera" class="close-camera">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Initialize new Lucide icons
+        lucide.createIcons({
+            attrs: {
+                class: "camera-icon"
+            }
+        });
+
+        // Add event listeners for camera controls
+        const closeBtn = container.querySelector('#close-camera');
+        const captureBtn = container.querySelector('#capture-button');
+
+        closeBtn.addEventListener('click', () => {
+            stopCamera();
+            container.remove();
+        });
+
+        captureBtn.addEventListener('click', () => {
+            captureImage();
+        });
+
+        return container;
+    }
+  
+    // Stop camera stream
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+    }
+  
+    // Capture image from camera
+    function captureImage() {
+        const video = document.getElementById('camera-feed');
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Convert to file
+        canvas.toBlob((blob) => {
+            const file = new File([blob], "roti-camera.jpg", { type: "image/jpeg" });
+            
+            // Stop camera and remove UI
+            stopCamera();
+            document.querySelector('.camera-container').remove();
+            
+            // Process image using existing upload handler
+            handleImageUpload(file);
+        }, 'image/jpeg', 0.8);
     }
   });
