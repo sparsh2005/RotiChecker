@@ -254,6 +254,7 @@
     cursor: pointer;
     transition: background-color 0.2s;
     margin-top: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .use-camera-button i {
