@@ -314,17 +314,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
   }
   
-  .capture-button:hover, .close-camera:hover {
+  .capture-button:hover {
     background: white;
+    transform: scale(1.1);
+  }
+  
+  .close-camera:hover {
+    background: white;
+    transform: scale(1.1);
   }
   
   .camera-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
     color: #8b4513;
+  }
+  
+  .capture-button .camera-icon {
+    width: 2.25rem;
+    height: 2.25rem;
   }
   
   .close-camera {

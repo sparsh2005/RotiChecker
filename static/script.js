@@ -191,12 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <video id="camera-feed" autoplay playsinline></video>
                 <div class="camera-controls">
                     <button id="capture-button" class="capture-button">
-                        <i data-lucide="camera"></i>
-                    </button>
-                    <button id="close-camera" class="close-camera">
-                        <i data-lucide="x"></i>
+                        <i data-lucide="circle"></i>
                     </button>
                 </div>
+                <button id="close-camera" class="close-camera">
+                    <i data-lucide="x"></i>
+                </button>
             </div>
         `;
 
