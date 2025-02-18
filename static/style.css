@@ -328,14 +328,15 @@
   }
   
   .camera-icon {
-    width: 1.75rem;
-    height: 1.75rem;
-    color: #8b4513;
+    width: 24px;
+    height: 24px;
+    stroke: #8b4513;
+    stroke-width: 2;
   }
   
   .capture-button .camera-icon {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 32px;
+    height: 32px;
   }
   
   .close-camera {

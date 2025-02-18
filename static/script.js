@@ -191,20 +191,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <video id="camera-feed" autoplay playsinline></video>
                 <div class="camera-controls">
                     <button id="capture-button" class="capture-button">
-                        <i data-lucide="circle"></i>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
                     </button>
                 </div>
                 <button id="close-camera" class="close-camera">
-                    <i data-lucide="x"></i>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
             </div>
         `;
 
-        // Initialize new Lucide icons
-        lucide.createIcons({
-            attrs: {
-                class: "camera-icon"
-            }
+        // Update the CSS for these SVGs
+        const svgs = container.querySelectorAll('svg');
+        svgs.forEach(svg => {
+            svg.style.color = '#8b4513';
+            svg.classList.add('camera-icon');
         });
 
         // Add event listeners for camera controls
