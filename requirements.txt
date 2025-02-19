@@ -1,2 +1,8 @@
-opencv-python
+flask
+gunicorn
+werkzeug
+# Add any other dependencies your roti_checker needs, such as:
+opencv-python-headless  # Use headless version for deployment
 numpy
+pillow
+opencv-python

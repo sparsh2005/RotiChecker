@@ -8,7 +8,7 @@ from app import roti_checker  # your CV logic
 app = Flask(__name__)
 
 # Folder to store uploads temporarily
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Limit upload size if desired (16 MB)
@@ -30,14 +30,16 @@ def upload():
     if file.filename == '':
         return jsonify({"error": "File name is empty"}), 400
 
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
+    # Create a temporary file
+    import tempfile
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        file.save(tmp.name)
+        # Run the roti checker
+        results = roti_checker(tmp.name)
+        # Clean up
+        os.unlink(tmp.name)
 
-    # Run the roti checker
-    results = roti_checker(filepath)
     if results is None:
-        # roti_checker returned None => error in analysis
         return jsonify({"error": "Could not analyze roti image"}), 400
 
     # Extract the three scores we need
@@ -45,7 +47,6 @@ def upload():
     color = results["color_score"]
     overall = results["overall_score"]
 
-    # Return as JSON
     return jsonify({
         "roundness": roundness,
         "color": color,
