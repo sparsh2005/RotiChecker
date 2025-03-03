@@ -2,7 +2,7 @@
 
 A fun web application that uses computer vision to analyze and score your roti's perfection! Ever wondered if your roti is perfectly round and evenly cooked? Now you can know for sure!
 
-![Roti Checker App](./assets/screenshots/app-preview.png)
+![Roti Checker App](./assets/screenshots/app-preview.jpeg)
 
 ## Features
 
