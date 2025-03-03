@@ -15,6 +15,8 @@ A fun web application that uses computer vision to analyze and score your roti's
 - 💡 Receive helpful feedback and tips for improvement
 - 📱 Fully responsive design that works on both mobile and desktop
 
+![Roti Checker App](./assets/screenshots/app-preview2.jpeg)
+
 ## How It Works
 
 The app uses computer vision (OpenCV) to analyze two key aspects of your roti:
